@@ -51,14 +51,23 @@ function fadeInText() {
 
   if (!cardTexts) return
 
-  const tl = $gsap.from(cardTexts, {
-    opacity: 0,
-    y: 8,
-    duration: 0.7,
-    stagger: {
-      amount: 0.1,
+  $gsap.set(cardTexts, { opacity: 0, y: 8 })
+
+  const tl = $gsap.fromTo(
+    cardTexts,
+    {
+      opacity: 0,
+      y: 8,
     },
-  })
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: {
+        amount: 0.1,
+      },
+    },
+  )
 
   return tl
 }
