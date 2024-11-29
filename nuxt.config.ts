@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
-  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxtjs/i18n'],
+  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxtjs/i18n', 'nuxt-swiper'],
   i18n: {
     vueI18n: './i18n.config.ts',
     locales: [
@@ -36,12 +36,5 @@ export default defineNuxtConfig({
       },
     ],
     defaultLocale: 'en',
-  },
-  postcss: {
-    plugins: {
-      'postcss-nested': {},
-      'postcss-hexrgba': {},
-      'postcss-import': {},
-    },
   },
 })
