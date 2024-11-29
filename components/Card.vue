@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { gsap } from 'gsap'
+const { $gsap } = useNuxtApp()
 
 const props = defineProps<{
   image: string
@@ -19,10 +18,10 @@ const initSlider = () => {
   if (!images) return
 
   // Set initial state (show the first image only)
-  gsap.set(images, { opacity: 0 })
-  gsap.set(images[0], { opacity: 1 })
+  $gsap.set(images, { opacity: 0 })
+  $gsap.set(images[0], { opacity: 1 })
 
-  const tl = gsap.timeline({
+  const tl = $gsap.timeline({
     paused: true,
     repeat: -1,
     yoyo: false,
@@ -47,11 +46,44 @@ const initSlider = () => {
   return tl
 }
 
+function fadeInText() {
+  const cardTexts = cardRef.value?.querySelectorAll('.card-texts')
+
+  if (!cardTexts) return
+
+  const tl = $gsap.from(cardTexts, {
+    opacity: 0,
+    y: 8,
+    duration: 0.7,
+    stagger: {
+      amount: 0.1,
+    },
+  })
+
+  return tl
+}
+
 const timeline = ref<GSAPTimeline | null>(null)
+const timelineText = ref<GSAPTween | null>(null)
+
+function play() {
+  timeline.value?.play()
+  timelineText.value?.play()
+}
+
+function pause() {
+  timeline.value?.pause()
+  timelineText.value?.reverse()
+}
 
 onMounted(() => {
-  const tl = initSlider()
-  if (tl) timeline.value = tl
+  nextTick(() => {
+    const tl = initSlider()
+    if (tl) timeline.value = tl
+
+    const tlText = fadeInText()
+    if (tlText) timelineText.value = tlText
+  })
 })
 </script>
 
@@ -59,8 +91,8 @@ onMounted(() => {
   <div
     ref="cardRef"
     class="card relative flex w-full flex-col justify-end bg-cover bg-center bg-no-repeat"
-    @mouseenter="timeline?.play()"
-    @mouseleave="timeline?.pause()"
+    @mouseenter="play()"
+    @mouseleave="pause()"
   >
     <div
       ref="imagesRef"
@@ -81,13 +113,13 @@ onMounted(() => {
     </div>
     <div class="card-content h-full w-full p-12">
       <div class="relative z-10 flex h-full w-full flex-col justify-end">
-        <div class="mb-2 flex items-center justify-between">
+        <div class="card-texts mb-2 flex items-center justify-between">
           <h4 class="text-base">
             {{ title }}
           </h4>
-          <Icon name="uil:angle-right-b" class="text-white" />
+          <!-- <Icon name="uil:angle-right-b" class="text-white" /> -->
         </div>
-        <p class="text-sm">
+        <p class="card-texts text-sm">
           {{ detail }}
         </p>
       </div>
