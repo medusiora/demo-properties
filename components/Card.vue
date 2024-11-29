@@ -9,10 +9,19 @@ defineProps<{
 
 <template>
   <div
-    class="card relative flex w-full flex-col justify-end bg-cover bg-center bg-no-repeat p-12"
-    :style="{ backgroundImage: `url(${image})` }"
+    class="card relative flex w-full flex-col justify-end bg-cover bg-center bg-no-repeat"
   >
-    <div class="card-content">
+    <div class="card-images absolute left-0 top-0 h-full w-full">
+      <img :src="image" :alt="image" class="h-full w-full object-cover" />
+      <img
+        v-for="(photo, index) in photos"
+        :key="index"
+        :src="photo"
+        :alt="photo"
+        class="hidden h-full w-full object-cover"
+      />
+    </div>
+    <div class="card-content p-12">
       <div class="relative z-10">
         <div class="mb-2 flex items-center justify-between">
           <h4 class="text-base">

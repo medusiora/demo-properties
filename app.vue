@@ -22,21 +22,21 @@ const cards = reactive([
     title: 'Serene Nature Walkway',
     detail:
       'Experience tranquility in private spaces surrounded by lush greenery, perfect for relaxation or exercise.',
-    photos: [ExploreA1, ExploreA2, ExploreA3],
+    photos: [ExploreA2, ExploreA3],
   },
   {
     image: ExploreB1,
     title: 'Infinity Pool with Cityscape',
     detail:
       'Enjoy a luxurious infinity pool experience with breathtaking city views in an elevated atmosphere.',
-    photos: [ExploreB1, ExploreB2, ExploreB3],
+    photos: [ExploreB2, ExploreB3],
   },
   {
     image: ExploreC1,
     title: 'Modern Kitchen Design',
     detail:
       'A modern kitchen fully equipped with premium amenities, creating the perfect ambiance for stylish living.',
-    photos: [ExploreC1, ExploreC2, ExploreC3],
+    photos: [ExploreC2, ExploreC3],
   },
 ])
 </script>

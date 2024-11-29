@@ -13,6 +13,8 @@
     "@nuxt/fonts": "^0.10.2",
     "@nuxt/ui": "^2.19.2",
     "@nuxtjs/i18n": "^9.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.17",
     "nuxt": "^3.14.1592",
     "nuxt-swiper": "^2.0.0",
     "vue": "latest",
