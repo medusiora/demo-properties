@@ -18,7 +18,7 @@ const initSlider = () => {
   const images = imagesRef.value?.querySelectorAll('img')
   if (!images) return
 
-  // Set initial state
+  // Set initial state (show the first image only)
   gsap.set(images, { opacity: 0 })
   gsap.set(images[0], { opacity: 1 })
 
@@ -28,39 +28,39 @@ const initSlider = () => {
     yoyo: false,
   })
 
-  // Slide animation with opacity
+  // Animate each image in sequence
   images.forEach((image, index) => {
     tl.to(
       image,
       {
         opacity: 1,
-        duration: 0.5,
+        duration: 0.75,
       },
       '-=1',
     ).to(image, {
       opacity: 0,
-      duration: 0.5,
-      delay: 1,
+      duration: 0.75,
+      delay: 1.5,
     })
   })
 
-  // Hover interaction
-  cardRef.value?.addEventListener('mouseenter', () => {
-    tl.play()
-  })
-
-  cardRef.value?.addEventListener('mouseleave', () => {
-    tl.pause()
-  })
+  return tl
 }
 
-onMounted(initSlider)
+const timeline = ref<GSAPTimeline | null>(null)
+
+onMounted(() => {
+  const tl = initSlider()
+  if (tl) timeline.value = tl
+})
 </script>
 
 <template>
   <div
     ref="cardRef"
     class="card relative flex w-full flex-col justify-end bg-cover bg-center bg-no-repeat"
+    @mouseenter="timeline?.play()"
+    @mouseleave="timeline?.pause()"
   >
     <div
       ref="imagesRef"
@@ -73,7 +73,7 @@ onMounted(initSlider)
       />
       <img
         v-for="(photo, index) in photos"
-        :key="index"
+        :key="photo"
         :src="photo"
         :alt="photo"
         class="absolute left-0 top-0 h-full w-full object-cover"
