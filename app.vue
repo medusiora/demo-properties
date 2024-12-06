@@ -15,6 +15,11 @@ import ExploreC1 from '~/assets/images/explore-c1.webp'
 import ExploreC2 from '~/assets/images/explore-c2.webp'
 import ExploreC3 from '~/assets/images/explore-c3.webp'
 import ContactImage from '~/assets/images/contact.png'
+import { ScrollTrigger } from 'gsap/all'
+
+const { $gsap } = useNuxtApp()
+
+const stickyRef = ref<HTMLElement | null>(null)
 
 const cards = reactive([
   {
@@ -39,21 +44,125 @@ const cards = reactive([
     photos: [ExploreC2, ExploreC3],
   },
 ])
+
+onMounted(() => {
+  nextTick(() => {
+    // Pin the sticky section
+    ScrollTrigger.create({
+      trigger: stickyRef.value as Element,
+      start: 'top top',
+      end: `${window.innerHeight * 2}px top`,
+      pin: true,
+    })
+
+    // Image box fade in on scroll
+    animationImageBox()
+
+    // All text and button fade in on scroll
+    animationTexts()
+  })
+})
+
+function fadeIn(
+  item: Element | NodeListOf<Element>,
+  opacity: number,
+  y: number,
+  options = {},
+) {
+  $gsap.to(item, {
+    opacity,
+    y,
+    duration: 1,
+    ...options,
+  })
+}
+
+function animationTexts() {
+  const texts = document.querySelectorAll('.fade-in')
+  const stickyTexts = stickyRef.value?.querySelectorAll('h2, p, button')
+
+  if (texts) {
+    texts.forEach((item) => {
+      $gsap.set(item, { opacity: 0, y: 8 })
+      $gsap.to(item, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%',
+          // end: 'top 20%',
+          toggleActions: 'play reverse play reverse',
+        },
+      })
+    })
+  }
+
+  if (stickyTexts) {
+    stickyTexts.forEach((item) => {
+      $gsap.set(item, { opacity: 0, y: 8 })
+      $gsap.to(item, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%',
+          // end: 'top 20%',
+          // toggleActions: 'play reverse play reverse',
+        },
+      })
+    })
+  }
+}
+
+function animationImageBox() {
+  const images = document.querySelectorAll('.image-shadow img')
+  const yTransform = 70
+
+  if (!images) return
+
+  images.forEach((item) => {
+    $gsap.set(item, { opacity: 0, y: yTransform })
+
+    ScrollTrigger.create({
+      trigger: item,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      // toggleActions: 'play reverse play reverse',
+      scrub: true,
+      onEnter: () => {
+        fadeIn(item, 1, 0)
+      },
+      onLeave: () => {
+        fadeIn(item, 0, -yTransform)
+      },
+      onEnterBack: () => {
+        fadeIn(item, 1, 0)
+      },
+      onLeaveBack: () => {
+        fadeIn(item, 0, yTransform)
+      },
+    })
+  })
+}
 </script>
 
 <template>
   <div>
-    <section class="relative" id="hero">
+    <section class="relative h-screen" id="hero">
       <div class="caption">
         <div class="container">
           <div class="grid grid-cols-12 gap-4">
             <div
               class="relative col-span-5 flex h-screen flex-col justify-center py-[150px]"
             >
-              <h1 class="font-amiri text-8xl uppercase leading-[6.25rem]">
+              <h1
+                class="fade-in font-amiri text-8xl uppercase leading-[6.25rem]"
+              >
                 MYSITE
               </h1>
-              <h2 class="text-base">
+              <h2 class="fade-in text-base">
                 Discover luxurious condominiums in prime locations with modern
                 designs and amenities tailored to your lifestyle.
               </h2>
@@ -67,74 +176,117 @@ const cards = reactive([
 
     <section class="relative overflow-hidden">
       <div
-        class="pointer-events-none absolute left-0 top-0 flex h-full w-full flex-row flex-nowrap"
+        class="pointer-events-none left-0 top-0 flex h-auto w-full flex-row flex-nowrap"
       >
         <div
           class="z-10 flex-1"
           style="box-shadow: 20px 0px 30px -10px #00000066"
         ></div>
         <div class="relative w-[36%]">
-          <div class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+          <div class="relative h-screen">
+            <img
+              :src="DiscoverA2"
+              :alt="DiscoverA2"
+              class="h-full w-full object-cover"
+            />
+
             <div
-              class="aspect-square w-full max-w-[31.25rem]"
-              style="box-shadow: 4px 4px 50px 0px #00000040"
+              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
             >
-              <img
-                :src="DiscoverA1"
-                :alt="DiscoverA1"
-                class="h-full w-full object-cover"
-              />
+              <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
+                <img
+                  :src="DiscoverA1"
+                  :alt="DiscoverA1"
+                  class="h-full w-full object-cover"
+                />
+              </div>
             </div>
           </div>
 
-          <img
-            :src="DiscoverA2"
-            :alt="DiscoverA2"
-            class="h-full w-full object-cover"
-          />
+          <div class="relative h-screen">
+            <img
+              :src="DiscoverB2"
+              :alt="DiscoverB2"
+              class="h-full w-full object-cover"
+            />
+
+            <div
+              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+            >
+              <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
+                <img
+                  :src="DiscoverB1"
+                  :alt="DiscoverB1"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="relative h-screen">
+            <img
+              :src="DiscoverC2"
+              :alt="DiscoverC2"
+              class="h-full w-full object-cover"
+            />
+
+            <div
+              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+            >
+              <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
+                <img
+                  :src="DiscoverC1"
+                  :alt="DiscoverC1"
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="container">
-        <div class="grid grid-cols-12 gap-4">
-          <div
-            class="col-span-5 flex h-screen flex-col justify-between py-[150px]"
-          >
-            <div>
-              <h2 class="font-amiri text-5xl uppercase leading-[5rem]">
-                Discover Our <br />
-                Exclusive Properties
-              </h2>
-              <p class="text-base">
-                We've handpicked condominium projects in high-potential
-                locations that are perfect for both living and investment. Each
-                property offers modern design and premium amenities for your
-                ideal lifestyle.
-              </p>
+      <div class="absolute left-0 top-0 h-screen w-full" ref="stickyRef">
+        <div class="container">
+          <div class="sticky grid grid-cols-12 gap-4">
+            <div
+              class="col-span-5 flex h-screen flex-col justify-between py-[150px]"
+            >
+              <div>
+                <h2 class="font-amiri text-5xl uppercase leading-[5rem]">
+                  Discover Our <br />
+                  Exclusive Properties
+                </h2>
+                <p class="text-base">
+                  We've handpicked condominium projects in high-potential
+                  locations that are perfect for both living and investment.
+                  Each property offers modern design and premium amenities for
+                  your ideal lifestyle.
+                </p>
+              </div>
+              <Button label="Browse Condos" />
             </div>
-            <Button label="Browse Condos" />
           </div>
         </div>
       </div>
     </section>
 
-    <section class="h-[120vh]">
+    <section class="h-auto">
       <div class="container h-full py-[150px]">
         <div class="text-center">
-          <h2 class="font-amiri text-5xl uppercase leading-[5rem]">
+          <h2 class="fade-in font-amiri text-5xl uppercase leading-[5rem]">
             Explore Our Featured Properties
           </h2>
-          <p class="text-base">
+          <p class="fade-in text-base">
             Experience a new perspective of condo living through images that
             showcase exceptional design and premium facilities.
           </p>
-          <p class="text-base">
+          <p class="fade-in text-base">
             From infinity pools and fitness centers to peaceful green spaces,
             these properties have it all.
           </p>
         </div>
 
-        <div class="my-12 grid grid-cols-3 gap-1">
+        <div class="mt-12 grid grid-cols-3 gap-1">
           <Card
             v-for="card in cards"
             :key="card.title"
@@ -142,14 +294,14 @@ const cards = reactive([
             :title="card.title"
             :detail="card.detail"
             :photos="card.photos"
-            class="col-span-1 h-[44rem]"
+            class="fade-in col-span-1 h-[44rem]"
           />
         </div>
       </div>
     </section>
 
     <section
-      class="relative bg-cover bg-center bg-no-repeat"
+      class="relative h-screen bg-cover bg-center bg-no-repeat"
       id="contact"
       :style="{ backgroundImage: `url(${ContactImage})` }"
     >
@@ -160,18 +312,18 @@ const cards = reactive([
               class="relative col-span-6 col-start-7 mx-auto flex h-screen max-w-[720px] flex-col justify-center px-[100px] py-[150px]"
             >
               <h2
-                class="mb-3 text-center font-amiri text-5xl uppercase leading-[5rem]"
+                class="fade-in mb-3 text-center font-amiri text-5xl uppercase leading-[5rem]"
               >
                 Contact Us to Find Your Ideal Condo
               </h2>
 
               <div class="flex flex-col gap-5">
-                <Input label="Name" />
-                <Input label="Email" />
-                <Input label="Phone" />
-                <Input label="Preferences" />
+                <Input label="Name" class="fade-in" />
+                <Input label="Email" class="fade-in" />
+                <Input label="Phone" class="fade-in" />
+                <Input label="Preferences" class="fade-in" />
 
-                <Button label="Submit Inquiry" class="mx-auto mt-5" />
+                <Button label="Submit Inquiry" class="fade-in mx-auto mt-5" />
               </div>
             </div>
           </div>
@@ -184,10 +336,6 @@ const cards = reactive([
 <style>
 html {
   @apply bg-[#1e1e1e];
-}
-
-section {
-  @apply h-screen;
 }
 
 #hero,
@@ -207,5 +355,9 @@ section {
       @apply absolute right-0 top-0 h-full w-1/2 bg-[#1e1e1e] bg-opacity-80;
     }
   }
+}
+
+.box-shadow {
+  box-shadow: 4px 4px 50px 0px #00000040;
 }
 </style>
