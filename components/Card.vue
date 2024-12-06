@@ -129,9 +129,9 @@ onMounted(() => {
     <div class="card-content h-full w-full p-12">
       <div class="relative z-10 flex h-full w-full flex-col justify-end">
         <div class="card-texts mb-2 flex items-center justify-between">
-          <h4 class="text-base">
+          <h3 class="text-base">
             {{ title }}
-          </h4>
+          </h3>
           <!-- <Icon name="uil:angle-right-b" class="text-white" /> -->
         </div>
         <p class="card-texts text-sm">
