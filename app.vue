@@ -90,7 +90,7 @@ function animationTexts() {
         duration: 1,
         scrollTrigger: {
           trigger: item,
-          start: 'top 80%',
+          start: 'top 90%',
           // end: 'top 20%',
           toggleActions: 'play reverse play reverse',
         },
@@ -107,7 +107,7 @@ function animationTexts() {
         duration: 1,
         scrollTrigger: {
           trigger: item,
-          start: 'top 80%',
+          start: 'top 90%',
           // end: 'top 20%',
           // toggleActions: 'play reverse play reverse',
         },
@@ -152,13 +152,13 @@ function animationImageBox() {
   <div>
     <section class="relative h-screen" id="hero">
       <div class="caption">
-        <div class="container">
+        <UContainer>
           <div class="grid grid-cols-12 gap-4">
             <div
-              class="relative col-span-5 flex h-screen flex-col justify-center py-[150px]"
+              class="relative col-span-10 flex h-screen flex-col justify-center py-[150px] sm:col-span-5"
             >
               <h1
-                class="fade-in font-amiri text-8xl uppercase leading-[6.25rem]"
+                class="fade-in font-amiri text-7xl uppercase leading-[6.25rem] sm:text-8xl"
               >
                 MYSITE
               </h1>
@@ -168,7 +168,7 @@ function animationImageBox() {
               </h2>
             </div>
           </div>
-        </div>
+        </UContainer>
       </div>
 
       <HeroSwiper />
@@ -191,7 +191,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -211,7 +211,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -231,7 +231,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -246,13 +246,15 @@ function animationImageBox() {
       </div>
 
       <div class="absolute left-0 top-0 h-screen w-full" ref="stickyRef">
-        <div class="container">
+        <UContainer>
           <div class="sticky grid grid-cols-12 gap-4">
             <div
-              class="col-span-5 flex h-screen flex-col justify-between py-[150px]"
+              class="col-span-5 flex h-screen flex-col justify-between py-14 sm:py-[150px]"
             >
               <div>
-                <h2 class="font-amiri text-5xl uppercase leading-[5rem]">
+                <h2
+                  class="font-amiri text-4xl uppercase leading-[4rem] sm:text-5xl sm:leading-[5rem]"
+                >
                   Discover Our <br />
                   Exclusive Properties
                 </h2>
@@ -266,14 +268,16 @@ function animationImageBox() {
               <Button label="Browse Condos" />
             </div>
           </div>
-        </div>
+        </UContainer>
       </div>
     </section>
 
     <section class="h-auto">
-      <div class="container h-full py-[150px]">
+      <UContainer class="h-full py-[150px]">
         <div class="text-center">
-          <h2 class="fade-in font-amiri text-5xl uppercase leading-[5rem]">
+          <h2
+            class="fade-in font-amiri text-4xl uppercase leading-[4rem] sm:text-5xl sm:leading-[5rem]"
+          >
             Explore Our Featured Properties
           </h2>
           <p class="fade-in text-base">
@@ -294,10 +298,10 @@ function animationImageBox() {
             :title="card.title"
             :detail="card.detail"
             :photos="card.photos"
-            class="fade-in col-span-1 h-[44rem]"
+            class="fade-in col-span-1 h-[20rem] sm:h-[34rem] xl:h-[44rem]"
           />
         </div>
-      </div>
+      </UContainer>
     </section>
 
     <section
@@ -306,28 +310,28 @@ function animationImageBox() {
       :style="{ backgroundImage: `url(${ContactImage})` }"
     >
       <div class="caption-r">
-        <div class="container">
+        <UContainer>
           <div class="grid grid-cols-12 gap-4">
             <div
-              class="relative col-span-6 col-start-7 mx-auto flex h-screen max-w-[720px] flex-col justify-center px-[100px] py-[150px]"
+              class="relative col-span-10 col-start-3 mx-auto flex h-screen max-w-[720px] flex-col justify-center px-4 py-[150px] sm:col-span-8 sm:col-start-5 sm:px-20 xl:col-span-6 xl:col-start-7 xl:px-[100px]"
             >
               <h2
-                class="fade-in mb-3 text-center font-amiri text-5xl uppercase leading-[5rem]"
+                class="fade-in mb-3 text-center font-amiri text-4xl uppercase leading-[4rem] sm:text-5xl sm:leading-[5rem]"
               >
                 Contact Us to Find Your Ideal Condo
               </h2>
 
-              <div class="flex flex-col gap-5">
-                <Input label="Name" class="fade-in" />
-                <Input label="Email" class="fade-in" />
-                <Input label="Phone" class="fade-in" />
-                <Input label="Preferences" class="fade-in" />
+              <div class="fade-in flex flex-col gap-5">
+                <Input label="Name" />
+                <Input label="Email" />
+                <Input label="Phone" />
+                <Input label="Preferences" />
 
-                <Button label="Submit Inquiry" class="fade-in mx-auto mt-5" />
+                <Button label="Submit Inquiry" class="mx-auto mt-5" />
               </div>
             </div>
           </div>
-        </div>
+        </UContainer>
       </div>
     </section>
   </div>
@@ -345,14 +349,14 @@ html {
 
     &:before {
       content: '';
-      @apply absolute left-0 top-0 h-full w-1/2 bg-[#1e1e1e] bg-opacity-80;
+      @apply absolute left-0 top-0 h-full w-10/12 bg-[#1e1e1e] bg-opacity-80 sm:w-[64%] lg:w-1/2;
     }
   }
 
   .caption-r {
     &:before {
       content: '';
-      @apply absolute right-0 top-0 h-full w-1/2 bg-[#1e1e1e] bg-opacity-80;
+      @apply absolute right-0 top-0 h-full w-10/12 bg-[#1e1e1e] bg-opacity-80 sm:w-2/3 xl:w-1/2;
     }
   }
 }
