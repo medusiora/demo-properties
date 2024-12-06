@@ -47,33 +47,39 @@ const initSlider = () => {
 }
 
 function fadeInText() {
+  const cardContent = cardRef.value?.querySelector('.card-content')
   const cardTexts = cardRef.value?.querySelectorAll('.card-texts')
 
-  if (!cardTexts) return
+  if (!cardContent || !cardTexts) return
 
   $gsap.set(cardTexts, { opacity: 0, y: 8 })
 
-  const tl = $gsap.fromTo(
+  const tl = $gsap.timeline({
+    paused: true,
+  })
+
+  tl.to(cardContent, {
+    opacity: 1,
+    duration: 0.5,
+    ease: 'none',
+  }).to(
     cardTexts,
-    {
-      opacity: 0,
-      y: 8,
-    },
     {
       opacity: 1,
       y: 0,
-      duration: 0.7,
+      duration: 1,
       stagger: {
-        amount: 0.1,
+        amount: 0.5,
       },
     },
+    '-=0.5',
   )
 
   return tl
 }
 
 const timeline = ref<GSAPTimeline | null>(null)
-const timelineText = ref<GSAPTween | null>(null)
+const timelineText = ref<GSAPTimeline | null>(null)
 
 function play() {
   timeline.value?.play()
@@ -147,7 +153,7 @@ onMounted(() => {
 }
 
 .card-content {
-  @apply opacity-0 transition-opacity duration-300;
+  @apply opacity-0;
   position: relative;
   z-index: 10;
 
@@ -157,7 +163,7 @@ onMounted(() => {
   }
 }
 
-.card:hover .card-content {
+/* .card:hover .card-content {
   @apply opacity-100;
-}
+} */
 </style>
