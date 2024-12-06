@@ -191,7 +191,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
+              class="absolute top-1/2 z-20 -translate-x-[15%] -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -211,7 +211,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
+              class="absolute top-1/2 z-20 -translate-x-[15%] -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -231,7 +231,7 @@ function animationImageBox() {
             />
 
             <div
-              class="absolute top-1/2 z-20 -translate-x-1/4 -translate-y-1/2 sm:-translate-x-1/2"
+              class="absolute top-1/2 z-20 -translate-x-[15%] -translate-y-1/2 sm:-translate-x-1/2"
             >
               <div class="image-shadow aspect-square w-full max-w-[31.25rem]">
                 <img
@@ -245,11 +245,11 @@ function animationImageBox() {
         </div>
       </div>
 
-      <div class="absolute left-0 top-0 h-screen w-full" ref="stickyRef">
+      <div class="absolute left-0 top-0 z-20 h-screen w-full" ref="stickyRef">
         <UContainer>
           <div class="sticky grid grid-cols-12 gap-4">
             <div
-              class="col-span-5 flex h-screen flex-col justify-between py-14 sm:py-[150px]"
+              class="col-span-10 flex h-screen flex-col justify-between py-14 sm:col-span-5 sm:py-[150px]"
             >
               <div>
                 <h2
